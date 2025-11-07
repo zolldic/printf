@@ -22,13 +22,13 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			if (*(format + 1) != '\0')
-				count += _handler(*(format + 1), ap);
+				count += _handler(*(++format), ap);
 			else
 				exit(EXIT_FAILURE);
 		}
 		else
 			count += write(STDOUT, format, 1);
-		++format;
+		format++;
 	}
 
 	va_end(ap);
