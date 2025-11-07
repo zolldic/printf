@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-#include <unistd.h>
 
 /**
 * _handler - a function that match specifier passed to _printf
@@ -14,20 +12,25 @@ int _handler(char specifier, va_list ap)
 {
 	int x;
 	int count = 0;
+	int invalid = INVALID;
+
 	spec_t spec[3] = {
 		{'c', print_char},
 		{'s', print_str},
-		{'%', print_percent}
+		{'%', print_percent},
 	};
 
 	for (x = 0; x < 3; x++)
 	{
 		if (spec[x].name == specifier)
+		{
 			count += spec[x].func(ap);
+			invalid = 0;
+		}
 	}
+	
+	if (invalid == INVALID)
+		return (INVALID);
 
-	if (count == 0)
-		count += write(STDOUT, "%", 1);
 	return (count);
 }
-

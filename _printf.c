@@ -1,4 +1,5 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
  * _printf - a custom implementation of (printf) function
@@ -21,7 +22,11 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			if (*(format + 1) != '\0')
-				count += _handler(*(++format), ap);
+			{
+				count += _handler(*(format + 1), ap);
+				if (count == INVALID)
+					count += write(STDOUT, "%", 1) + 1;
+			}
 			else
 				exit(EXIT_FAILURE);
 		}

@@ -2,6 +2,8 @@
 #define PRINT_H
 
 #define STDOUT 1
+#define INVALID -1
+
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
