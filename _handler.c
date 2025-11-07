@@ -21,11 +21,10 @@ int _handler(char specifier, va_list ap)
 	};
 
 	for (x = 0; x < 3; x++)
+	{
 		if (spec[x].name == specifier)
 			count += spec[x].func(ap);
-	if (count == 0)
-		count += write(STDOUT, "%", 1);
-
+	}
 	return (count);
 }
 

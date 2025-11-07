@@ -21,7 +21,6 @@ int print_str(va_list ap)
 {
 	int count = 0;
 	char *str = va_arg(ap, char *);
-
 	if (!str)
 		str = "(null)";
 
