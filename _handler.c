@@ -23,7 +23,7 @@ int _handler(char specifier, va_list ap)
 	for (x = 0; x < 3; x++)
 	{
 		if (spec[x].name == specifier)
-			spec[x].func(ap);
+			count += spec[x].func(ap);
 	}
 	return (count);
 }
