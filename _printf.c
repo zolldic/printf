@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * _printf - a custom implementation of (printf) function
@@ -12,7 +13,7 @@ int _printf(const char *format, ...)
 	va_list ap;
 
 	if (!format)
-		return (count);
+		exit(EXIT_FAILURE);
 
 	va_start(ap, format);
 

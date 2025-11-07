@@ -5,7 +5,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 
 /**
  * struct Specifiers - a two memeber struct for
