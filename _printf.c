@@ -3,7 +3,7 @@
 /**
  * _printf - a custom implementation of (printf) function
  * @format: a string passed to the function
- * Return: the number of bytes written to the STDOUT 
+ * Return: the number of bytes written to the STDOUT
  */
 
 int _printf(const char *format, ...)
@@ -13,12 +13,15 @@ int _printf(const char *format, ...)
 
 	if (!format)
 		return (count);
-	
+
 	va_start(ap, format);
 
 	while (*format != '\0')
 	{
-		count += write(STDOUT, format, 1);
+		if (*format == '%')
+			count += _handler(*(++format), ap);
+		else
+			count += write(STDOUT, format, 1);
 		++format;
 	}
 
