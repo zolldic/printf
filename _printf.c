@@ -22,11 +22,7 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			if (*(format + 1) != '\0')
-			{
 				count += _handler(*(format + 1), ap);
-				if (count == INVALID)
-					count += write(STDOUT, "%", 1) + 1;
-			}
 			else
 				exit(EXIT_FAILURE);
 		}

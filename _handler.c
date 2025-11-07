@@ -12,7 +12,6 @@ int _handler(char specifier, va_list ap)
 {
 	int x;
 	int count = 0;
-	int invalid = INVALID;
 
 	spec_t spec[3] = {
 		{'c', print_char},
@@ -23,14 +22,8 @@ int _handler(char specifier, va_list ap)
 	for (x = 0; x < 3; x++)
 	{
 		if (spec[x].name == specifier)
-		{
 			count += spec[x].func(ap);
-			invalid = 0;
-		}
 	}
-	
-	if (invalid == INVALID)
-		return (INVALID);
 
 	return (count);
 }
