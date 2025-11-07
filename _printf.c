@@ -24,7 +24,8 @@ int _printf(const char *format, ...)
 				count += _handler(*(++format), ap);
 			else
 				exit(EXIT_FAILURE);
-		}else
+		}
+		else
 			count += write(STDOUT, format, 1);
 		++format;
 	}
