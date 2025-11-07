@@ -30,3 +30,15 @@ int print_str(va_list ap)
 
 	return (count);
 }
+
+/**
+* print_percent - print percent sign to STDOUT
+* @ap: list of unkown arguments passed to _printf
+* Return: count of bytes printed in STDOUT
+*/
+int print_percent(va_list ap)
+{
+	(void) ap;
+
+	return (write(STDOUT, "%", 1));
+}

@@ -30,6 +30,6 @@ int _handler(char specifier, va_list ap);
 /* custom print functions */
 int print_char(va_list ap);
 int print_str(va_list ap);
-
+int print_percent(va_list ap);
 
 #endif
