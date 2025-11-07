@@ -18,9 +18,13 @@ int _printf(const char *format, ...)
 
 	while (*format != '\0')
 	{
-		if (*format == '%' && ++format != NULL)
-			count += _handler(*(++format), ap);
-		else
+		if (*format == '%')
+		{
+			if (*(format + 1) != '\0')
+				count += _handler(*(++format), ap);
+			else
+				exit(EXIT_FAILURE);
+		}else
 			count += write(STDOUT, format, 1);
 		++format;
 	}
