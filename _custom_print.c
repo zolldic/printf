@@ -59,3 +59,16 @@ int print_integer(va_list ap)
 	count += print_digit(n);
 	return (count);
 }
+
+int print_binary(va_list ap)
+{
+	int x;
+	int count = 0;
+	int n = va_arg(ap, int);
+	int *arr = convert_to_binary(n);
+
+	for (x = 6; x >= 0; x--)
+		count += _write(arr[x] + '0');
+	free(arr);
+	return (count);
+}
