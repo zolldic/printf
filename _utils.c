@@ -31,6 +31,20 @@ int print_digit(long nmbr)
 	return (count);
 }
 
+int *convert_to_binary(int n)
+{
+	int *array = (int *)malloc(sizeof(int) * 8);
+	int x;
+
+	for (x = 0; n > 0; x++)
+	{
+		array[x] = n % 2;
+		n /= 2;
+	}
+
+	return (array);
+}
+
 /**
 * _write - a function that print a char to STDOUT
 * @c: a character

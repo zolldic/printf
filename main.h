@@ -33,8 +33,12 @@ int _handler(char specifier, va_list ap);
 int print_char(va_list ap);
 int print_str(va_list ap);
 int print_percent(va_list ap);
-
 int print_integer(va_list ap);
+int print_binary(va_list ap);
 
+
+int *convert_to_binary(int n);
 int print_digit(long nmbr);
+
+int _write(char c);
 #endif
