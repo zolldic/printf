@@ -45,3 +45,17 @@ int print_percent(va_list ap)
 
 	return (write(STDOUT, "%", 1));
 }
+
+/**
+* print_integer - extracts and prints an integer from va_list
+* @ap: list of unknown arguments passed to _printf
+* Return: count of bytes printed to STDOUT
+*/
+int print_integer(va_list ap)
+{
+	int count = 0;
+	long int n = va_arg(ap, int);
+
+	count += print_digit(n);
+	return (count);
+}
