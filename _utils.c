@@ -30,3 +30,13 @@ int print_digit(long nmbr)
 
 	return (count);
 }
+
+/**
+* _write - a function that print a char to STDOUT
+* @c: a character
+* REturn: the number of bytes sent to STDOUT
+*/
+int _write(char c)
+{
+	return (write(STDOUT, &c, 1));
+}
