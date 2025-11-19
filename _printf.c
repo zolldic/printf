@@ -8,28 +8,38 @@
 
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	va_list ap;
+	buffer_t buffer;
+	data_t data;
+
+	buffer.index = 0;
+	buffer.total_count = 0;
+
+	data.buffer_ptr = &buffer;
 
 	if (!format)
-		exit(EXIT_FAILURE);
+		return (-1);
 
-	va_start(ap, format);
+	va_start(data.ap, format);
 
-	while (*format != '\0')
+	while (*format)
 	{
 		if (*format == '%')
 		{
 			if (*(format + 1) != '\0')
-				count += _handler(*(++format), ap);
-			else
-				exit(EXIT_FAILURE);
+			{
+				data.specifier = *(format + 1);
+				_handler(&data);
+				format++;
+			}
 		}
 		else
-			count += write(STDOUT, format, 1);
+			add_char(&buffer, *format);
+	
 		format++;
 	}
 
-	va_end(ap);
-	return (count);
+	flush_buffer(&buffer);
+
+	va_end(data.ap);
+	return (buffer.total_count);
 }
