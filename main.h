@@ -1,6 +1,8 @@
 #ifndef PRINT_H
 #define PRINT_H
 
+#define BUFFER_SIZE 1024
+#define SEPC_SIZE 3
 #define STDOUT 1
 #define INVALID -1
 
@@ -10,35 +12,56 @@
 #include <stdlib.h>
 
 /**
- * struct Specifiers - a two memeber struct for
- *	specifiers and custom functions
- *	@name: name of the specifier
- *	@func: the specifier custom funciton
+ * struct s_buffer - buffer structure for efficient output
+ * @buffer: character array to store output temporarily
+ * @index: current position in buffer (0 to BUFFER_SIZE-1)
+ * @total_count: total number of characters printed to stdout
  *
- *	Description: this struct is used to match the spsecifier
- *		with its custom funciton in the _handler funciton
+ * Description: This structure implements buffered output for _printf.
  */
-
-typedef struct Specifiers
+typedef struct s_buffer 
 {
-	char name;
-	int (*func)(va_list ap);
-} spec_t;
+	char buffer[BUFFER_SIZE];
+	unsigned int index;
+	unsigned int total_count;
+} buffer_t;
 
+
+/**
+ * struct binary_data - holds binary representation of an integer
+ * @array: dynamically allocated array storing binary digits
+ * @size: number of binary digits in the array
+ * @is_negative: flag indicating if original number was negative (1) or not (0)
+ *
+ * Description: This structure stores the binary representation of an integer.
+ */
+typedef struct binary_data
+{
+	int *array;	
+	int size;
+	int is_negative;
+} binary_t;
+
+
+
+/* main entry point */
 int _printf(const char *format, ...);
 
-int _handler(char specifier, va_list ap);
 
 /* custom print functions */
-int print_char(va_list ap);
+
 int print_str(va_list ap);
 int print_percent(va_list ap);
 int print_integer(va_list ap);
 int print_binary(va_list ap);
 
 
-int *convert_to_binary(int n);
+binary_t *convert_to_binary(int n, unsigned int size);
 int print_digit(long nmbr);
 
-int _write(char c);
+/* __utils__ */
+int _check_specifier(char c);
+void add_char(buffer_t *buff, char c);
+void flush_buffer(buffer_t *buff);
+
 #endif

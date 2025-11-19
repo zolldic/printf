@@ -1,56 +1,29 @@
 #include "main.h"
 
 /**
-* print_digit - print the digit to STDOUT
-* @nmbr: the number to print
-* Return: count of bytes printed to STDOUT
-*/
-
-int print_digit(long nmbr)
+ * add_char - adds a character to the buffer
+ * @buff: pointer to buffer structure
+ * @c: character to add
+ */
+void add_char(buffer_t *buff, char c)
 {
-	int count = 0;
+	buff->buffer[buff->index] = c;
+	buff->index++;
+	buff->total_count++;
 
-	if (nmbr < 0)
-	{
-		count += write(STDOUT, "-", 1);
-		nmbr = nmbr * (-1);
-	}
-
-	if (nmbr < 10)
-	{
-		nmbr = nmbr + '0';
-		count += write(STDOUT, &nmbr, 1);
-	}
-	else
-	{
-		count += print_digit(nmbr / 10);
-		nmbr = (nmbr % 10) + '0';
-		count += write(STDOUT, &nmbr, 1);
-	}
-
-	return (count);
-}
-
-int *convert_to_binary(int n)
-{
-	int *array = (int *)malloc(sizeof(int) * 8);
-	int x;
-
-	for (x = 0; n > 0; x++)
-	{
-		array[x] = n % 2;
-		n /= 2;
-	}
-
-	return (array);
+	if (buff->index == BUFFER_SIZE)
+		flush_buffer(buff);
 }
 
 /**
-* _write - a function that print a char to STDOUT
-* @c: a character
-* REturn: the number of bytes sent to STDOUT
-*/
-int _write(char c)
+ * flush_buffer - writes buffer contents to stdout and resets index
+ * @buff: pointer to buffer structure
+ */
+void flush_buffer(buffer_t *buff)
 {
-	return (write(STDOUT, &c, 1));
+	if (buff->index > 0)
+		write(STDOUT, buff->buffer, buff->index);
+
+	buff->index = 0;
 }
+
