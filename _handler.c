@@ -16,14 +16,14 @@ void _handler(data_t *data)
 		{'c', print_char},
 		{'s', print_str},
 		{'%', print_percent},
-		/*
-		 * {'d', print_integer},
-		 * {'i', print_integer},
+		{'d', print_integer},
+		{'i', print_integer},
+		/* 
 		 * {'b', print_binary}
 		*/
 	};
 
-	for (x = 0; x < 3; x++)
+	for (x = 0; x < 5; x++)
 	{
 		if (spec[x].name == data->specifier)
 		{

@@ -84,7 +84,8 @@ void print_percent(data_t *ptr);
 void print_integer(data_t *ptr);
 int print_binary(va_list ap);
 binary_t *convert_to_binary(int n, unsigned int size);
-int print_digit(long nmbr);
+
+void extract_digits(data_t *ptr, long nmbr);
 int _check_specifier(char c);
 void add_char(buffer_t *buff, char c);
 void flush_buffer(buffer_t *buff);

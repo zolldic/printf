@@ -39,3 +39,41 @@ void print_percent(data_t *ptr)
 	add_char(ptr->buffer_ptr, '%');
 }
 
+/**
+* print_integer - extracts and prints an integer from va_list
+* @ap: list of unknown arguments passed to _printf
+* Return: count of bytes printed to STDOUT
+*/
+
+void print_integer(data_t *ptr)
+{
+	extract_digits(ptr, va_arg(ptr->ap, int));
+}
+
+/**
+* print_digit - print the digit to STDOUT
+* @nmbr: the number to print
+* Return: count of bytes printed to STDOUT
+*/
+
+void extract_digits(data_t *ptr, long nmbr)
+{
+
+	if (nmbr < 0)
+	{
+		add_char(ptr->buffer_ptr, '-');
+		nmbr = nmbr * (-1);
+	}
+
+	if (nmbr < 10)
+	{
+		nmbr = nmbr + '0';
+		add_char(ptr->buffer_ptr, nmbr);
+	}
+	else
+	{
+		extract_digits(ptr, nmbr / 10);
+		nmbr = (nmbr % 10) + '0';
+		add_char(ptr->buffer_ptr, nmbr);
+	}
+}
