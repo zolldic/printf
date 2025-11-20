@@ -10,7 +10,7 @@
 
 void _handler(data_t *data)
 {
-	int x;
+	int x, valid = -1;
 
 	spec_t spec[6] = {
 		{'c', print_char},
@@ -26,6 +26,16 @@ void _handler(data_t *data)
 	for (x = 0; x < 3; x++)
 	{
 		if (spec[x].name == data->specifier)
+		{
 			spec[x].func(data);
+			valid  = 0;
+		}
+	}
+
+	/* handle invalid specifiers */
+	if (valid == -1)
+	{
+		add_char(data->buffer_ptr, '%');
+		add_char(data->buffer_ptr, data->specifier);
 	}
 }
