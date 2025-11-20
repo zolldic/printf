@@ -84,6 +84,7 @@ void print_integer(data_t *ptr);
 void print_binary(data_t *ptr);
 
 void extract_digits(data_t *ptr, long nmbr);
+binary_t *handle_positive_binary(unsigned int nmbr);
 
 int _check_specifier(char c);
 void add_char(buffer_t *buff, char c);

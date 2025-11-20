@@ -56,10 +56,12 @@ void print_integer(data_t *ptr)
 */
 void print_binary(data_t *ptr)
 {
-	unsigned int num;
+	int num;
+	unsigned int un;
 	int i;
-
-	num = va_arg(ptr->ap, unsigned int);
+	binary_t *binary;
+	
+	num = va_arg(ptr->ap, int);
 
 	if (num == 0)
 	{
@@ -67,11 +69,26 @@ void print_binary(data_t *ptr)
 		return;
 	}
 
-	for (i = 31; i >= 0; i--)
+	if (num < 0)
 	{
-		if ((num >> i) & 1)
-			add_char(ptr->buffer_ptr, '1');
-		else
-			add_char(ptr->buffer_ptr, '0');
+		un = (unsigned int)num;
+		for (i = 31; i >= 0; i--)
+		{
+			if ((un >> i) & 1)
+				add_char(ptr->buffer_ptr, '1');
+			else
+				add_char(ptr->buffer_ptr, '0');
+		}
+	}
+	else
+	{
+		un = (unsigned int)num;
+		binary = handle_positive_binary(un);
+
+		for (i = binary->size - 1; i >= 0; i--)
+			add_char(ptr->buffer_ptr, binary->data[i]);
+
+		free(binary->data);
+		free(binary);
 	}
 }
