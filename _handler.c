@@ -18,17 +18,15 @@ void _handler(data_t *data)
 		{'%', print_percent},
 		{'d', print_integer},
 		{'i', print_integer},
-		/* 
-		 * {'b', print_binary}
-		*/
+		{'b', print_binary}
 	};
 
-	for (x = 0; x < 5; x++)
+	for (x = 0; x < 6; x++)
 	{
 		if (spec[x].name == data->specifier)
 		{
 			spec[x].func(data);
-			valid  = 0;
+			valid = 0;
 		}
 	}
 

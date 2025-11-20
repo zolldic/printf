@@ -30,17 +30,15 @@ typedef struct s_buffer
 
 /**
  * struct binary_data - holds binary representation of an integer
- * @array: dynamically allocated array storing binary digits
  * @size: number of binary digits in the array
- * @is_negative: flag indicating if original number was negative (1) or not (0)
+ * @data: dynamically allocated array storing binary digits as characters
  *
  * Description: This structure stores the binary representation of an integer.
  */
 typedef struct binary_data
 {
-	int *array;
 	int size;
-	int is_negative;
+	char *data;
 } binary_t;
 
 
@@ -78,14 +76,15 @@ typedef struct s_specifiers
 
 int _printf(const char *format, ...);
 void _handler(data_t *data);
+
 void print_char(data_t *ptr);
 void print_str(data_t *ptr);
 void print_percent(data_t *ptr);
 void print_integer(data_t *ptr);
-int print_binary(va_list ap);
-binary_t *convert_to_binary(int n, unsigned int size);
+void print_binary(data_t *ptr);
 
 void extract_digits(data_t *ptr, long nmbr);
+
 int _check_specifier(char c);
 void add_char(buffer_t *buff, char c);
 void flush_buffer(buffer_t *buff);
