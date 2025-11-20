@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * add_char - adds a character to the buffer
@@ -65,6 +66,8 @@ binary_t *handle_positive_binary(unsigned int nmbr)
 	binary_t *tmp;
 
 	tmp = (binary_t *)malloc(sizeof(binary_t));
+	if (!tmp)
+		return (NULL);
 
 	tmp->size = 0;
 	tmp->data = (char *)malloc(sizeof(char) * 32);
