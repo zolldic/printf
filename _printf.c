@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * _printf - a custom implementation of (printf) function
@@ -31,6 +32,8 @@ int _printf(const char *format, ...)
 				_handler(&data);
 				format++;
 			}
+			else
+				exit(EXIT_FAILURE);
 		}
 		else
 			add_char(&buffer, *format);
