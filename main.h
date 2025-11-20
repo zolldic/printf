@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /**
  * struct s_buffer - buffer structure for efficient output
  * @buffer: character array to store output temporarily
@@ -19,7 +20,7 @@
  *
  * Description: This structure implements buffered output for _printf.
  */
-typedef struct s_buffer 
+typedef struct s_buffer
 {
 	char buffer[BUFFER_SIZE];
 	unsigned int index;
@@ -37,29 +38,53 @@ typedef struct s_buffer
  */
 typedef struct binary_data
 {
-	int *array;	
+	int *array;
 	int size;
 	int is_negative;
 } binary_t;
 
 
+/**
+ * struct s_data - data structure for printf processing
+ * @ap: variable argument list
+ * @specifier: format specifier character
+ * @buffer_ptr: pointer to output buffer structure
+ *
+ * Description: This structure holds data needed during printf processing.
+ */
+typedef struct s_data
+{
+	va_list ap;
+	char specifier;
+	buffer_t *buffer_ptr;
+} data_t;
 
-/* main entry point */
+/**
+ * struct s_specifiers - a two member struct for
+ *	specifiers and custom functions
+ * @name: name of the specifier
+ * @func: the specifier custom function
+ *
+ * Description: this struct is used to match the specifier
+ * with its custom function in the _handler function
+ */
+typedef struct s_specifiers
+{
+	char name;
+	void (*func)(data_t *ptr);
+} spec_t;
+
+
+
 int _printf(const char *format, ...);
-
-
-/* custom print functions */
-
-int print_str(va_list ap);
-int print_percent(va_list ap);
-int print_integer(va_list ap);
+void _handler(data_t *data);
+void print_char(data_t *ptr);
+void print_str(data_t *ptr);
+void print_percent(data_t *ptr);
+void print_integer(data_t *ptr);
 int print_binary(va_list ap);
-
-
 binary_t *convert_to_binary(int n, unsigned int size);
 int print_digit(long nmbr);
-
-/* __utils__ */
 int _check_specifier(char c);
 void add_char(buffer_t *buff, char c);
 void flush_buffer(buffer_t *buff);

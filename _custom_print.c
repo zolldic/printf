@@ -2,73 +2,39 @@
 
 /**
 * print_char - print a character to STDOUT
-* @ap: list of unkown arguments passed to _printf
-* Return: count of bytes printed in STDOUT
+* @ptr: a struct that points to the buffer and the arguments list
 */
-int print_char(va_list ap)
+void print_char(data_t *ptr)
 {
-	char c =  va_arg(ap, int);
-
-	return (write(STDOUT, &c, 1));
+	add_char(ptr->buffer_ptr, va_arg(ptr->ap, int));
 }
 
 /**
 * print_str - print a string to STDOUT
-* @ap: list of unkown arguments passed to _printf
-* Return: count of bytes printed in STDOUT
+* @ptr: a struct that points to the buffer and the arguments list
 */
-int print_str(va_list ap)
+void print_str(data_t *ptr)
 {
-	int count = 0;
-	char *str = va_arg(ap, char *);
+	char *str = va_arg(ptr->ap, char *);
 
 	if (!str)
 		str = "(null)";
 
 	while (*str != '\0')
 	{
-		count += write(STDOUT, str, 1);
+		add_char(ptr->buffer_ptr, *str);
 		str++;
 	}
-
-	return (count);
 }
 
 /**
 * print_percent - print percent sign to STDOUT
-* @ap: list of unkown arguments passed to _printf
-* Return: count of bytes printed in STDOUT
+* @ptr: a struct that points to the buffer and the arguments list
 */
-int print_percent(va_list ap)
-{
-	(void) ap;
 
-	return (write(STDOUT, "%", 1));
+void print_percent(data_t *ptr)
+{
+	(void) ptr;
+	write(STDOUT, "%", 1);
 }
 
-/**
-* print_integer - extracts and prints an integer from va_list
-* @ap: list of unknown arguments passed to _printf
-* Return: count of bytes printed to STDOUT
-*/
-int print_integer(va_list ap)
-{
-	int count = 0;
-	long int n = va_arg(ap, int);
-
-	count += print_digit(n);
-	return (count);
-}
-
-int print_binary(va_list ap)
-{
-	int x;
-	int count = 0;
-	int n = va_arg(ap, int);
-	int *arr = convert_to_binary(n);
-
-	for (x = 6; x >= 0; x--)
-		count += _write(arr[x] + '0');
-	free(arr);
-	return (count);
-}

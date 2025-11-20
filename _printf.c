@@ -34,7 +34,7 @@ int _printf(const char *format, ...)
 		}
 		else
 			add_char(&buffer, *format);
-	
+
 		format++;
 	}
 
