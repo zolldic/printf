@@ -84,6 +84,8 @@ void print_binary(data_t *ptr)
 	{
 		un = (unsigned int)num;
 		binary = handle_positive_binary(un);
+		if (!binary)
+			return;
 
 		for (i = binary->size - 1; i >= 0; i--)
 			add_char(ptr->buffer_ptr, binary->data[i]);
