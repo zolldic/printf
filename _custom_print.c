@@ -41,8 +41,7 @@ void print_percent(data_t *ptr)
 
 /**
 * print_integer - extracts and prints an integer from va_list
-* @ap: list of unknown arguments passed to _printf
-* Return: count of bytes printed to STDOUT
+* @ptr: pointer to data structure containing buffer and arguments
 */
 
 void print_integer(data_t *ptr)
@@ -50,30 +49,29 @@ void print_integer(data_t *ptr)
 	extract_digits(ptr, va_arg(ptr->ap, int));
 }
 
+
 /**
-* print_digit - print the digit to STDOUT
-* @nmbr: the number to print
-* Return: count of bytes printed to STDOUT
+* print_binary - converts and prints unsigned int as binary
+* @ptr: pointer to data structure containing buffer and arguments
 */
-
-void extract_digits(data_t *ptr, long nmbr)
+void print_binary(data_t *ptr)
 {
+	unsigned int num;
+	int i;
 
-	if (nmbr < 0)
+	num = va_arg(ptr->ap, unsigned int);
+
+	if (num == 0)
 	{
-		add_char(ptr->buffer_ptr, '-');
-		nmbr = nmbr * (-1);
+		add_char(ptr->buffer_ptr, '0');
+		return;
 	}
 
-	if (nmbr < 10)
+	for (i = 31; i >= 0; i--)
 	{
-		nmbr = nmbr + '0';
-		add_char(ptr->buffer_ptr, nmbr);
-	}
-	else
-	{
-		extract_digits(ptr, nmbr / 10);
-		nmbr = (nmbr % 10) + '0';
-		add_char(ptr->buffer_ptr, nmbr);
+		if ((num >> i) & 1)
+			add_char(ptr->buffer_ptr, '1');
+		else
+			add_char(ptr->buffer_ptr, '0');
 	}
 }
