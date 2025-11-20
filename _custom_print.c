@@ -35,6 +35,7 @@ void print_str(data_t *ptr)
 void print_percent(data_t *ptr)
 {
 	(void) ptr;
-	write(STDOUT, "%", 1);
+
+	add_char(ptr->buffer_ptr, '%');
 }
 
