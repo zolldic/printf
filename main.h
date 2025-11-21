@@ -80,8 +80,10 @@ void _handler(data_t *data);
 void print_char(data_t *ptr);
 void print_str(data_t *ptr);
 void print_percent(data_t *ptr);
+
 void print_integer(data_t *ptr);
 void print_binary(data_t *ptr);
+void print_unsigned(data_t *ptr);
 
 void extract_digits(data_t *ptr, long nmbr);
 binary_t *handle_positive_binary(unsigned int nmbr);
