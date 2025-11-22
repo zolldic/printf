@@ -8,18 +8,27 @@
 
 void handle_integers(data_t *ptr)
 {
-	unsigned int n;
 	integer_t data;
 
-	n = va_arg(ptr->ap, unsigned int);
+	data.num = va_arg(ptr->ap, unsigned int);
 
-	if (n == 0)
+	if (data.num == 0)
 	{
 		add_char(ptr->buffer_ptr, '0');
 		return;
 	}
 
-	data.num = n;
+	if (ptr->specifier == 'd' || ptr->specifier == 'i')
+	{
+		extract_digits(ptr, (int) data.num);
+		return;
+	}
+
+	if (ptr->specifier == 'u')
+	{
+		extract_digits(ptr, data.num);
+		return;
+	}
 
 	if (ptr->specifier == 'o')
 		data.base = 8;

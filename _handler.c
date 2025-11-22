@@ -16,10 +16,10 @@ void _handler(data_t *data)
 		{'c', print_char},
 		{'s', print_str},
 		{'%', print_percent},
-		{'d', print_integer},
-		{'i', print_integer},
+		{'d', handle_integers},
+		{'i', handle_integers},
 		{'b', handle_integers},
-		{'u', print_unsigned},
+		{'u', handle_integers},
 		{'o', handle_integers},
 		{'x', handle_integers},
 		{'X', handle_integers}
