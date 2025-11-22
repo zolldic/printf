@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * handle_integers - handles conversion of integers to different bases
@@ -26,6 +27,11 @@ void handle_integers(data_t *ptr)
 		data.base = 2;
 	else if (ptr->specifier == 'x')
 		data.base = 16;
+	else if (ptr->specifier == 'X')
+	{
+		data.base = 16;
+		data.is_cap = 1;
+	}
 
 	_convert(&data, ptr->buffer_ptr);
 
@@ -41,22 +47,27 @@ void _convert(integer_t *d, buffer_t *buff)
 {
 	integer_t ptr;
 	int x = 0;
+	char digits[16] = "0123456789abcdef";
+	
+	if (d->is_cap == 1)
+		for (x = 10; x < 16; x++)
+			digits[x] = digits[x] - 32;
 
 	ptr.num = d->num;
 	ptr.base = d->base;
 
-	ptr.res = (char *) malloc(sizeof(char) * 32);
+	ptr.res = (char *) malloc(sizeof(char) * 64);
 
 	if (!ptr.res)
 		return;
 	while (ptr.num != 0)
 	{
-		ptr.res[x] = (ptr.num % ptr.base) + '0';
+		ptr.res[x] = digits[ptr.num % ptr.base];
 		ptr.num /= ptr.base;
 		x++;
 	}
 	ptr.size = x;
-
+	
 	int_to_buffer(&ptr, buff);
 }
 

@@ -29,20 +29,6 @@ typedef struct s_buffer
 
 
 /**
- * struct binary_data - holds binary representation of an integer
- * @size: number of binary digits in the array
- * @data: dynamically allocated array storing binary digits as characters
- *
- * Description: This structure stores the binary representation of an integer.
- */
-typedef struct binary_data
-{
-	int size;
-	char *data;
-} binary_t;
-
-
-/**
  * struct s_data - data structure for printf processing
  * @ap: variable argument list
  * @specifier: format specifier character
@@ -88,6 +74,7 @@ typedef struct s_integer_data
 	unsigned int num;
 	int base;
 	int size;
+	int is_cap;
 	char *res;
 } integer_t;
 
@@ -112,10 +99,6 @@ void print_char(data_t *ptr);
 void print_str(data_t *ptr);
 void print_percent(data_t *ptr);
 void print_integer(data_t *ptr);
-void print_binary(data_t *ptr);
 void print_unsigned(data_t *ptr);
-
-
-binary_t *handle_positive_binary(unsigned int nmbr);
 
 #endif

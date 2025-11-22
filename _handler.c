@@ -12,7 +12,7 @@ void _handler(data_t *data)
 {
 	int x, valid = -1;
 
-	spec_t spec[8] = {
+	spec_t spec[10] = {
 		{'c', print_char},
 		{'s', print_str},
 		{'%', print_percent},
@@ -20,10 +20,12 @@ void _handler(data_t *data)
 		{'i', print_integer},
 		{'b', handle_integers},
 		{'u', print_unsigned},
-		{'o', handle_integers}
+		{'o', handle_integers},
+		{'x', handle_integers},
+		{'X', handle_integers}
 	};
 
-	for (x = 0; x < 8; x++)
+	for (x = 0; x < 10; x++)
 	{
 		if (spec[x].name == data->specifier)
 		{
