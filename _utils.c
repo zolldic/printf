@@ -56,32 +56,6 @@ void extract_digits(data_t *ptr, long nmbr)
 }
 
 /**
- * handle_positive_binary - converts unsigned int to binary representation
- * @nmbr: the number to convert
- *
- * Return: pointer to binary_t structure containing binary data
- */
-binary_t *handle_positive_binary(unsigned int nmbr)
-{
-	binary_t *tmp;
-
-	tmp = (binary_t *)malloc(sizeof(binary_t));
-	if (!tmp)
-		return (NULL);
-
-	tmp->size = 0;
-	tmp->data = (char *)malloc(sizeof(char) * 32);
-	while (nmbr != 0)
-	{
-		tmp->data[tmp->size] = (nmbr % 2) + '0';
-		nmbr = nmbr / 2;
-		tmp->size++;
-	}
-
-	return (tmp);
-}
-
-/**
 * int_to_buffer - a function to add integer into the buffer.
 * @d: pointer to the integer_t structure
 * @buff: pointer to the buffer_t structure
