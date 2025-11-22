@@ -73,23 +73,52 @@ typedef struct s_specifiers
 } spec_t;
 
 
+/**
+ * struct s_integer_data - structure for integer base conversion
+ * @num: unsigned integer value to be converted
+ * @base: numerical base for conversion (2, 8, 10, or 16)
+ * @is_negative: flag indicating if original number was negative (1 or 0)
+ * @size: number of digits in the converted result
+ * @res: dynamically allocated string holding converted digits
+ *
+ * Description: This structure holds data needed for converting integers
+ */
+typedef struct s_integer_data
+{
+	unsigned int num;
+	int base;
+	int is_negative;
+	int size;
+	char *res;
+} integer_t;
 
+
+/* __main_entry_point__ */
 int _printf(const char *format, ...);
 void _handler(data_t *data);
 
+/* __utils__ */
+void handle_integers(data_t *ptr);
+void _postive_conversion(integer_t *d, buffer_t *buff);
+void _convert(integer_t *data, buffer_t *buff);
+void extract_digits(data_t *ptr, long nmbr);
+
+/* __buffer_utils__ */
+void add_char(buffer_t *buff, char c);
+void flush_buffer(buffer_t *buff);
+void int_to_buffer(integer_t *d, buffer_t *buff);
+
+
+/* __custom_prints */
 void print_char(data_t *ptr);
 void print_str(data_t *ptr);
 void print_percent(data_t *ptr);
-
 void print_integer(data_t *ptr);
 void print_binary(data_t *ptr);
 void print_unsigned(data_t *ptr);
 
-void extract_digits(data_t *ptr, long nmbr);
-binary_t *handle_positive_binary(unsigned int nmbr);
 
+binary_t *handle_positive_binary(unsigned int nmbr);
 int _check_specifier(char c);
-void add_char(buffer_t *buff, char c);
-void flush_buffer(buffer_t *buff);
 
 #endif

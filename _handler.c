@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
-* _handler - a function that match specifier passed to _printf
-*	with its custom functions
-* @data: a pointer to a struct that holds the following:
-*	- ap: list of arguments
-*	- buffer_ptr: pointer to the buffer
-*/
+ * _handler - matches format specifier with its corresponding function
+ * @data: pointer to data_t struct containing:
+ *  - ap: variable argument list
+ *  - specifier: format specifier character
+ *  - buffer_ptr: pointer to output buffer
+ */
 
 void _handler(data_t *data)
 {

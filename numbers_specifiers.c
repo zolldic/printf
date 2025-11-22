@@ -20,7 +20,7 @@ void print_binary(data_t *ptr)
 	unsigned int un;
 	int i;
 	binary_t *binary;
-	
+
 	num = va_arg(ptr->ap, int);
 
 	if (num == 0)
@@ -62,6 +62,8 @@ void print_unsigned(data_t *ptr)
 {
 
 	unsigned int n;
+
 	n = va_arg(ptr->ap, int);
+
 	extract_digits(ptr, n);
 }

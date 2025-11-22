@@ -10,7 +10,6 @@ void handle_integers(data_t *ptr)
 	int n;
 	integer_t data;
 
-
 	n = va_arg(ptr->ap, int);
 
 	if (n == 0)
@@ -21,7 +20,7 @@ void handle_integers(data_t *ptr)
 	else
 		data.is_negative = 0;
 
-	data.num = abs(n);	
+	data.num = abs(n);
 	if (ptr->specifier == 'o')
 		data.base = 8;
 	else if (ptr->specifier == 'b')
@@ -55,7 +54,6 @@ void _convert(integer_t *data, buffer_t *buf)
 
 void _postive_conversion(integer_t *d, buffer_t *buff)
 {
-	
 	integer_t ptr;
 	int x = 0;
 
@@ -73,7 +71,7 @@ void _postive_conversion(integer_t *d, buffer_t *buff)
 		x++;
 	}
 	ptr.size = x;
-	
+
 	int_to_buffer(&ptr, buff);
 }
 
