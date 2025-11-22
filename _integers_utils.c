@@ -7,20 +7,20 @@
 
 void handle_integers(data_t *ptr)
 {
-	int n;
+	unsigned int n;
 	integer_t data;
 
-	n = va_arg(ptr->ap, int);
-
+	n = va_arg(ptr->ap, unsigned int);
+	
 	if (n == 0)
+	{
 		add_char(ptr->buffer_ptr, '0');
+		return;
+	}
 
-	if (n < 0)
-		data.is_negative = 1;
-	else
-		data.is_negative = 0;
+	data.is_negative = 0;
+	data.num = n;
 
-	data.num = abs(n);
 	if (ptr->specifier == 'o')
 		data.base = 8;
 	else if (ptr->specifier == 'b')
