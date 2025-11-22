@@ -99,7 +99,6 @@ void _handler(data_t *data);
 
 /* __utils__ */
 void handle_integers(data_t *ptr);
-void _postive_conversion(integer_t *d, buffer_t *buff);
 void _convert(integer_t *data, buffer_t *buff);
 void extract_digits(data_t *ptr, long nmbr);
 

@@ -18,7 +18,7 @@ void _handler(data_t *data)
 		{'%', print_percent},
 		{'d', print_integer},
 		{'i', print_integer},
-		{'b', print_binary},
+		{'b', handle_integers},
 		{'u', print_unsigned},
 		{'o', handle_integers}
 	};
