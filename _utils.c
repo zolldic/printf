@@ -80,3 +80,19 @@ binary_t *handle_positive_binary(unsigned int nmbr)
 
 	return (tmp);
 }
+
+/**
+* int_to_buffer - a function to add integer into the buffer.
+* @d: pointer to the integer_t structure
+* @buff: pointer to the buffer_t structure
+*
+*/
+void int_to_buffer(integer_t *d, buffer_t *buff)
+{
+	int x;
+
+	for (x = (d->size - 1); x >= 0; x--)
+		add_char(buff, d->res[x]);
+
+	free(d->res);
+}
