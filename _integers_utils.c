@@ -12,7 +12,7 @@ void handle_integers(data_t *ptr)
 	integer_t data;
 
 	n = va_arg(ptr->ap, unsigned int);
-	
+
 	if (n == 0)
 	{
 		add_char(ptr->buffer_ptr, '0');
@@ -48,10 +48,11 @@ void _convert(integer_t *d, buffer_t *buff)
 	integer_t ptr;
 	int x = 0;
 	char digits[16] = "0123456789abcdef";
-	
+
 	if (d->is_cap == 1)
 		for (x = 10; x < 16; x++)
 			digits[x] = digits[x] - 32;
+	x = 0;
 
 	ptr.num = d->num;
 	ptr.base = d->base;
@@ -67,7 +68,7 @@ void _convert(integer_t *d, buffer_t *buff)
 		x++;
 	}
 	ptr.size = x;
-	
+
 	int_to_buffer(&ptr, buff);
 }
 
