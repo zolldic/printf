@@ -87,7 +87,6 @@ typedef struct s_integer_data
 {
 	unsigned int num;
 	int base;
-	int is_negative;
 	int size;
 	char *res;
 } integer_t;
@@ -118,6 +117,5 @@ void print_unsigned(data_t *ptr);
 
 
 binary_t *handle_positive_binary(unsigned int nmbr);
-int _check_specifier(char c);
 
 #endif
