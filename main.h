@@ -1,16 +1,15 @@
 #ifndef PRINT_H
 #define PRINT_H
 
-#define BUFFER_SIZE 1024
-#define SEPC_SIZE 3
-#define STDOUT 1
-#define INVALID -1
-
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#define BUFFER_SIZE 1024
+#define STDOUT 1
+
+/* ___ CORE STRUCTURES __*/
 
 /**
  * struct s_buffer - buffer structure for efficient output
@@ -26,7 +25,6 @@ typedef struct s_buffer
 	unsigned int index;
 	unsigned int total_count;
 } buffer_t;
-
 
 /**
  * struct s_data - data structure for printf processing
@@ -44,13 +42,12 @@ typedef struct s_data
 } data_t;
 
 /**
- * struct s_specifiers - a two member struct for
- *	specifiers and custom functions
- * @name: name of the specifier
- * @func: the specifier custom function
+ * struct s_specifiers - maps format specifiers to handler functions
+ * @name: format specifier character (e.g., 'c', 's', 'd')
+ * @func: pointer to function that handles this specifier
  *
- * Description: this struct is used to match the specifier
- * with its custom function in the _handler function
+ * Description: This structure is used to match format specifiers
+ * with their corresponding handler functions in _handler
  */
 typedef struct s_specifiers
 {
@@ -59,69 +56,101 @@ typedef struct s_specifiers
 } spec_t;
 
 
-/**
- * struct s_integer_data - structure for integer base conversion
- * @num: unsigned integer value to be converted
- * @base: numerical base for conversion (2, 8, 10, or 16)
- * @is_negative: flag indicating if original number was negative (1 or 0)
- * @size: number of digits in the converted result
- * @res: dynamically allocated string holding converted digits
- *
- * Description: This structure holds data needed for converting integers
- */
-typedef struct s_integer_data
-{
-	unsigned int num;
-	int base;
-	int size;
-	int is_cap;
-	char *res;
-} integer_t;
+/* __ STRING STRUCTURES __*/
 
+/**
+ * struct s_string - structure for string/character processing
+ * @c: single character (for %c specifier)
+ * @ptr: pointer to string (for %s, %S, %r specifiers)
+ * @buffer: pointer to output buffer
+ *
+ * Description: Used for handling string and character format specifiers
+ */
 typedef struct s_string
 {
 	char c;
 	char *ptr;
 	buffer_t *buffer;
-
 } str_t;
 
+/**
+ * struct s_router - maps string specifiers to handler functions
+ * @name: format specifier character (e.g., 'c', 's', 'S', 'r')
+ * @func: pointer to function that handles this string specifier
+ *
+ * Description: Router for string-related format specifiers
+ */
 typedef struct s_router
 {
 	char name;
 	void (*func)(str_t *ptr);
 } router_s;
 
-/* __main_entry_point__ */
+/* __ INTEGER STRUCTURES ___ */
+
+/**
+ * struct i_int - structure for integer conversion
+ * @number: unsigned long integer value to be converted
+ * @result: dynamically allocated string holding converted digits
+ * @base: numerical base for conversion (2, 8, 10, or 16)
+ * @size: number of digits in the converted result
+ * @is_cap: flag for uppercase conversion (1 = uppercase, 0 = lowercase)
+ * @buffer: pointer to output buffer
+ *
+ * Description: Primary structure for integer to string conversion
+ */
+typedef struct i_int
+{
+	unsigned long int number;
+	char *result;
+	int base;
+	int size;
+	int is_cap;
+	buffer_t *buffer;
+} int_t;
+
+/**
+ * struct i_router - maps integer specifiers to handler functions
+ * @name: format specifier character (e.g., 'd', 'x', 'o', 'b')
+ * @base: numerical base associated with this specifier
+ * @func: pointer to function that handles this integer specifier
+ *
+ * Description: Router for integer-related format specifiers
+ */
+typedef struct i_router
+{
+	char name;
+	int base;
+	void (*func)(int_t *d);
+} router_i;
+
+/* __ MAIN ENTRY POINT __ */
 int _printf(const char *format, ...);
+
+/* __ CORE HANDLERS __ */
 void _handler(data_t *data);
-
-/* __utils__ */
-void handle_integers(data_t *ptr);
-void _convert(integer_t *data, buffer_t *buff);
-void extract_digits(data_t *ptr, long nmbr);
-
 void handle_chars(data_t *ptr);
+void handle_integers(data_t *ptr);
+void print_percent(data_t *ptr);
 
+/* __ STRING FUNCTIONS __ */
 void _chars(str_t *d);
 void _strings(str_t *d);
 void _custom_str(str_t *d);
 void _reverse_str(str_t *data);
-void _rot(str_t *data);
-
 int _strlen(char *str);
 
-/* __buffer_utils__ */
+/* __INTEGER FUNCTIONS __*/
+
+void _convert(int_t *d);
+void _extract_signed(int_t *d);
+void _extract_u(int_t *d);
+void _extract_address(int_t *d);
+char *itobase(int_t *d);
+void int_to_buffer(int_t *d);
+
+/* __ BUFFER FUNCTIONS __ */
 void add_char(buffer_t *buff, char c);
 void flush_buffer(buffer_t *buff);
-void int_to_buffer(integer_t *d, buffer_t *buff);
-
-
-/* __custom_prints */
-void print_char(data_t *ptr);
-void print_str(data_t *ptr);
-void print_percent(data_t *ptr);
-void print_integer(data_t *ptr);
-void print_unsigned(data_t *ptr);
 
 #endif

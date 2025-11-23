@@ -2,11 +2,16 @@
 #include <stdlib.h>
 
 /**
- * _printf - a custom implementation of (printf) function
- * @format: a string passed to the function
- * Return: the number of bytes written to the STDOUT
+ * _printf - custom implementation of printf function
+ * @format: format string containing text and format specifiers
+ *
+ * Description: Produces output according to a format string.
+ * Supports specifiers: c, s, %, d, i, b, u, o, x, X, S, r, p
+ * Uses buffered output for efficiency.
+ *
+ * Return: number of characters printed (excluding null byte),
+ *         or -1 if format is NULL
  */
-
 int _printf(const char *format, ...)
 {
 	buffer_t buffer;
