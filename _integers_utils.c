@@ -31,7 +31,7 @@ void _convert(int_t *d)
 void _extract_signed(int_t *d)
 {
 	int x = 0;
-	int n = (int) d->number;
+	long int n = (long int) d->number;
 	unsigned int digit;
 
 	d->result = (char *) malloc(sizeof(char) * 1024);
