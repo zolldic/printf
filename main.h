@@ -131,10 +131,10 @@ int _printf(const char *format, ...);
 void _handler(data_t *data);
 void handle_chars(data_t *ptr);
 void handle_integers(data_t *ptr);
-void print_percent(data_t *ptr);
 
 /* __ STRING FUNCTIONS __ */
 void _chars(str_t *d);
+void _percent(str_t *d);
 void _strings(str_t *d);
 void _custom_str(str_t *d);
 void _reverse_str(str_t *data);
