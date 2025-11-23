@@ -1,11 +1,11 @@
 #include "main.h"
-#include <stdlib.h>
 
 /**
  * add_char - adds a character to the buffer
  * @buff: pointer to buffer structure
  * @c: character to add
  */
+
 void add_char(buffer_t *buff, char c)
 {
 	buff->buffer[buff->index] = c;
@@ -29,53 +29,53 @@ void flush_buffer(buffer_t *buff)
 }
 
 /**
- * extract_digits - recursively extracts and prints digits
- * @ptr: pointer to data structure containing buffer
- * @nmbr: the number to print
+ * itobase - converts integer to string representation in specified base
+ * @d: pointer to int_t structure containing number, base, and conversion flags
+ * Return: dynamically allocated string containing converted digits,
+ *         or NULL on allocation failure
  */
-void extract_digits(data_t *ptr, long nmbr)
+char *itobase(int_t *d)
 {
+	int x;
+	char digits[16] = "0123456789abcdef";
+	char *result = (char *) malloc(sizeof(char) * 64);
 
-	if (nmbr < 0)
-	{
-		add_char(ptr->buffer_ptr, '-');
-		nmbr = nmbr * (-1);
-	}
+	if (!result)
+		return (NULL);
 
-	if (nmbr < 10)
+	if (d->is_cap == 1)
+		for (x = 10; x < 16; x++)
+			digits[x] = digits[x] - 32;
+
+	x = 0;
+	while (d->number != 0)
 	{
-		nmbr = nmbr + '0';
-		add_char(ptr->buffer_ptr, nmbr);
+		result[x] = digits[d->number % d->base];
+		d->number /= d->base;
+		x++;
 	}
-	else
-	{
-		extract_digits(ptr, nmbr / 10);
-		nmbr = (nmbr % 10) + '0';
-		add_char(ptr->buffer_ptr, nmbr);
-	}
+	d->size = x;
+	return (result);
 }
 
 /**
-* int_to_buffer - a function to add integer into the buffer.
-* @d: pointer to the integer_t structure
-* @buff: pointer to the buffer_t structure
-*
-*/
-void int_to_buffer(integer_t *d, buffer_t *buff)
+ * int_to_buffer - writes converted integer string to buffer
+ * @d: pointer to int_t structure containing result string and size
+ */
+void int_to_buffer(int_t *d)
 {
 	int x;
 
 	for (x = (d->size - 1); x >= 0; x--)
-		add_char(buff, d->res[x]);
+		add_char(d->buffer, d->result[x]);
 
-	free(d->res);
+	free(d->result);
 }
 
 /**
- * _strlen - calculates the length of a string
+ * _strlen - calculates the length of a null-terminated string
  * @str: pointer to string
- *
- * Return: length of string
+ * Return: number of characters in string (excluding null terminator)
  */
 int _strlen(char *str)
 {
