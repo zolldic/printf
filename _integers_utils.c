@@ -36,6 +36,9 @@ void _extract_signed(int_t *d)
 
 	d->result = (char *) malloc(sizeof(char) * 1024);
 
+	if (!d->result)
+		return;
+
 	if (n < 0)
 	{
 		add_char(d->buffer, '-');
@@ -66,6 +69,9 @@ void _extract_u(int_t *d)
 	unsigned int digit;
 
 	d->result = (char *) malloc(sizeof(char) * 1024);
+
+	if (!d->result)
+		return;
 
 	while (n > 0)
 	{
