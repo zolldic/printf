@@ -62,11 +62,12 @@ void handle_chars(data_t *ptr)
 
 	if (ptr->specifier == 'c')
 		string_data.c = va_arg(ptr->ap, int);
-	else
+	else if (ptr->specifier != '%')
+	{
 		string_data.ptr = va_arg(ptr->ap, char *);
-
-	if (!string_data.ptr)
-		string_data.ptr = "(null)";
+		if (!string_data.ptr)
+			string_data.ptr = "(null)";
+	}
 
 	for (x = 0; x < 5; x++)
 	{
