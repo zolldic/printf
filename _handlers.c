@@ -11,7 +11,7 @@ void _handler(data_t *data)
 	spec_t spec[13] = {
 		{'c', handle_chars},
 		{'s', handle_chars},
-		{'%', print_percent},
+		{'%', handle_chars},
 		{'d', handle_integers},
 		{'i', handle_integers},
 		{'b', handle_integers},
@@ -52,7 +52,7 @@ void handle_chars(data_t *ptr)
 	int x;
 	router_s s[5] = {
 		{'c', _chars},
-		{'%', _percent}	
+		{'%', _percent},
 		{'s', _strings},
 		{'S', _custom_str},
 		{'r', _reverse_str},
