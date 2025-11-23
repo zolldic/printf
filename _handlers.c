@@ -112,7 +112,6 @@ void handle_integers(data_t *ptr)
 	
 		while (x >= 0)
 		{
-			printf("hex[%d]: %c\n", x, hex[x]);
 			add_char(ptr->buffer_ptr, hex[x]);
 			x--;
 		}
