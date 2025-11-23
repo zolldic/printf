@@ -2,8 +2,8 @@
 #include <stddef.h>
 
 /**
- * _chars - Adds a char to the buffer
- * @d: a str_t data structure
+ * _chars - adds a single character to the buffer
+ * @d: pointer to str_t structure containing character and buffer
  */
 void _chars(str_t *d)
 {
@@ -11,8 +11,19 @@ void _chars(str_t *d)
 }
 
 /**
- * _strings - Adds a string to the buffer
- * @d: a str_t data structure
+ * print_percent - prints a literal percent sign
+ * @ptr: pointer to data_t struct (unused)
+ */
+void _percent(str_t *d)
+{
+	(void) d;
+
+	add_char(d->buffer, '%');
+}
+
+/**
+ * _strings - adds a null-terminated string to the buffer
+ * @d: pointer to str_t structure containing string pointer and buffer
  */
 void _strings(str_t *d)
 {
@@ -26,8 +37,8 @@ void _strings(str_t *d)
 }
 
 /**
- * _custom_str - Handles %S specifier, prints non-printable chars as \xHH
- * @d: a str_t data structure
+ * _custom_str - handles %S specifier with non-printable character escaping
+ * @d: pointer to str_t structure containing string pointer and buffer
  */
 void _custom_str(str_t *d)
 {
@@ -61,8 +72,8 @@ void _custom_str(str_t *d)
 }
 
 /**
- * _reverse_str - Reverses a string to the buffer
- * @d: a str_t data structure
+ * _reverse_str - prints a string in reverse order
+ * @d: pointer to str_t structure containing string pointer and buffer
  */
 void _reverse_str(str_t *d)
 {

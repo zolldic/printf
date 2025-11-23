@@ -41,6 +41,7 @@ void _handler(data_t *data)
 	}
 }
 
+
 /**
  * handle_chars - handles character and string format specifiers
  * @ptr: pointer to data_t struct containing format data
@@ -51,6 +52,7 @@ void handle_chars(data_t *ptr)
 	int x;
 	router_s s[5] = {
 		{'c', _chars},
+		{'%', _percent}	
 		{'s', _strings},
 		{'S', _custom_str},
 		{'r', _reverse_str},
