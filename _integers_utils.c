@@ -20,8 +20,6 @@ void _convert(int_t *d)
 		return;
 
 	int_to_buffer(&ptr);
-
-	free(ptr.result);
 }
 
 /**
