@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdint.h>
 
 /**
  * _handler - matches format specifier with its corresponding function
@@ -25,7 +26,7 @@ void _handler(data_t *data)
 		{'X', handle_integers},
 		{'S', handle_chars},
 		{'r', handle_chars},
-		{'R', handle_chars}
+		{'p', handle_integers}
 	};
 
 	for (x = 0; x < 13; x++)
@@ -58,7 +59,6 @@ void handle_chars(data_t *ptr)
 		{'s', _strings},
 		{'S', _custom_str},
 		{'r', _reverse_str},
-		/*{'R', _rot} */
 	};
 
 	string_data.buffer = ptr->buffer_ptr;
@@ -86,7 +86,38 @@ void handle_chars(data_t *ptr)
 void handle_integers(data_t *ptr)
 {
 	integer_t data;
+	int x;
+	unsigned long int p;
+	char hex[32];
+	char digits[16] = "0123456789abcdef";
+		
+	if (ptr->specifier == 'p')
+	{
+		p = (unsigned long int) va_arg(ptr->ap, void *);
+	
+		add_char(ptr->buffer_ptr, '0');
+		add_char(ptr->buffer_ptr, 'x');
 
+		
+		x = 0;
+
+		while (p != 0)
+		{
+			hex[x] = digits[p % 16];
+			p /= 16;
+			x++;
+		}
+
+		x -= 1;
+	
+		while (x >= 0)
+		{
+			printf("hex[%d]: %c\n", x, hex[x]);
+			add_char(ptr->buffer_ptr, hex[x]);
+			x--;
+		}
+		return;
+	}
 	data.num = va_arg(ptr->ap, unsigned int);
 
 	if (data.num == 0)
@@ -99,14 +130,14 @@ void handle_integers(data_t *ptr)
 	{
 		extract_digits(ptr, (int) data.num);
 		return;
-	}
+	} 
 
 	if (ptr->specifier == 'u')
 	{
 		extract_digits(ptr, data.num);
 		return;
 	}
-
+	
 	if (ptr->specifier == 'o')
 		data.base = 8;
 	else if (ptr->specifier == 'b')
