@@ -45,6 +45,10 @@ void _handler(data_t *data)
 	}
 }
 
+/**
+ * handle_chars - Handles character and string specifiers
+ * @ptr: pointer to data_t struct containing format data
+ */
 void handle_chars(data_t *ptr)
 {
 	str_t string_data;
@@ -58,7 +62,7 @@ void handle_chars(data_t *ptr)
 	};
 
 	string_data.buffer = ptr->buffer_ptr;
-	
+
 	if (ptr->specifier == 'c')
 		string_data.c = va_arg(ptr->ap, int);
 	else

@@ -78,6 +78,19 @@ typedef struct s_integer_data
 	char *res;
 } integer_t;
 
+typedef struct s_string
+{
+	char c;
+	char *ptr;
+	buffer_t *buffer;
+
+} str_t;
+
+typedef struct s_router
+{
+	char name;
+	void (*func)(str_t *ptr);
+} router_s;
 
 /* __main_entry_point__ */
 int _printf(const char *format, ...);
@@ -87,6 +100,16 @@ void _handler(data_t *data);
 void handle_integers(data_t *ptr);
 void _convert(integer_t *data, buffer_t *buff);
 void extract_digits(data_t *ptr, long nmbr);
+
+void handle_chars(data_t *ptr);
+
+void _chars(str_t *d);
+void _strings(str_t *d);
+void _custom_str(str_t *d);
+void _reverse_str(str_t *data);
+void _rot(str_t *data);
+
+int _strlen(char *str);
 
 /* __buffer_utils__ */
 void add_char(buffer_t *buff, char c);

@@ -70,3 +70,21 @@ void int_to_buffer(integer_t *d, buffer_t *buff)
 
 	free(d->res);
 }
+
+/**
+ * _strlen - calculates the length of a string
+ * @str: pointer to string
+ *
+ * Return: length of string
+ */
+int _strlen(char *str)
+{
+	int x = 0;
+
+	while (*str)
+	{
+		str++;
+		x++;
+	}
+	return (x);
+}

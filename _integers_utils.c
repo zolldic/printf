@@ -2,56 +2,10 @@
 #include <stdlib.h>
 
 /**
- * handle_integers - handles conversion of integers to different bases
- * @ptr: pointer to data_t struct containing argument list and buffer
- */
-
-void handle_integers(data_t *ptr)
-{
-	integer_t data;
-
-	data.num = va_arg(ptr->ap, unsigned int);
-
-	if (data.num == 0)
-	{
-		add_char(ptr->buffer_ptr, '0');
-		return;
-	}
-
-	if (ptr->specifier == 'd' || ptr->specifier == 'i')
-	{
-		extract_digits(ptr, (int) data.num);
-		return;
-	}
-
-	if (ptr->specifier == 'u')
-	{
-		extract_digits(ptr, data.num);
-		return;
-	}
-
-	if (ptr->specifier == 'o')
-		data.base = 8;
-	else if (ptr->specifier == 'b')
-		data.base = 2;
-	else if (ptr->specifier == 'x')
-		data.base = 16;
-	else if (ptr->specifier == 'X')
-	{
-		data.base = 16;
-		data.is_cap = 1;
-	}
-
-	_convert(&data, ptr->buffer_ptr);
-
-}
-
-/**
  * _convert - converts integer data to string representation
- * @data: pointer to integer_t struct containing number and base info
- * @buf: pointer to buffer_t struct for output
-  */
-
+ * @d: pointer to integer_t struct containing number and base info
+ * @buff: pointer to buffer_t struct for output
+ */
 void _convert(integer_t *d, buffer_t *buff)
 {
 	integer_t ptr;
