@@ -81,10 +81,10 @@ int _strlen(char *str)
 {
 	int x = 0;
 
-	while (*str)
+	while (*str != '\0')
 	{
-		str++;
 		x++;
+		str++;
 	}
-	return (x);
+	return (x - 1);
 }
