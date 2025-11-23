@@ -1,37 +1,95 @@
 #include "main.h"
 #include <stdlib.h>
 
+
 /**
- * _convert - converts integer data to string representation
- * @d: pointer to integer_t struct containing number and base info
- * @buff: pointer to buffer_t struct for output
+ * _convert - converts unsigned integer to string in specified base
+ * @d: pointer to int_t structure containing number, base, and buffer
  */
-void _convert(integer_t *d, buffer_t *buff)
+void _convert(int_t *d)
 {
-	integer_t ptr;
-	int x = 0;
-	char digits[16] = "0123456789abcdef";
+	int_t ptr;
 
-	if (d->is_cap == 1)
-		for (x = 10; x < 16; x++)
-			digits[x] = digits[x] - 32;
-	x = 0;
-
-	ptr.num = d->num;
+	ptr.number = d->number;
 	ptr.base = d->base;
+	ptr.buffer = d->buffer;
+	ptr.is_cap = d->is_cap;
 
-	ptr.res = (char *) malloc(sizeof(char) * 64);
-
-	if (!ptr.res)
+	ptr.result = itobase(&ptr);
+	if (!ptr.result)
 		return;
-	while (ptr.num != 0)
-	{
-		ptr.res[x] = digits[ptr.num % ptr.base];
-		ptr.num /= ptr.base;
-		x++;
-	}
-	ptr.size = x;
 
-	int_to_buffer(&ptr, buff);
+	int_to_buffer(&ptr);
+
+	free(ptr.result);
 }
 
+/**
+ * _extract_signed - converts signed integer to decimal string
+ * @d: pointer to int_t structure containing number and buffer
+ */
+void _extract_signed(int_t *d)
+{
+	int x = 0;
+	int n = (int) d->number;
+	unsigned int digit;
+
+	d->result = (char *) malloc(sizeof(char) * 1024);
+
+	if (n < 0)
+	{
+		add_char(d->buffer, '-');
+		n =  n * (-1);
+	}
+
+	while (n > 0)
+	{
+		digit = n % 10;
+		d->result[x] = digit + '0';
+		n /= 10;
+		x++;
+	}
+
+	d->size = x;
+
+	int_to_buffer(d);
+}
+
+/**
+ * _extract_u - converts unsigned integer to decimal string
+ * @d: pointer to int_t structure containing number and buffer
+ */
+void _extract_u(int_t *d)
+{
+	int x = 0;
+	unsigned long int n = d->number;
+	unsigned int digit;
+
+	d->result = (char *) malloc(sizeof(char) * 1024);
+
+	while (n > 0)
+	{
+		digit = n % 10;
+		d->result[x] = digit + '0';
+		n /= 10;
+		x++;
+	}
+
+	d->size = x;
+
+	int_to_buffer(d);
+}
+
+/**
+ * _extract_address - converts pointer address to hexadecimal string
+ * @d: pointer to int_t structure containing address value and buffer
+ */
+void _extract_address(int_t *d)
+{
+	add_char(d->buffer, '0');
+	add_char(d->buffer, 'x');
+
+	d->result = itobase(d);
+
+	int_to_buffer(d);
+}
