@@ -1,14 +1,9 @@
 #include "main.h"
-#include <stdint.h>
 
 /**
  * _handler - matches format specifier with its corresponding function
- * @data: pointer to data_t struct containing:
- *  - ap: variable argument list
- *  - specifier: format specifier character
- *  - buffer_ptr: pointer to output buffer
+ * @data: pointer to data_t struct containing format processing data
  */
-
 void _handler(data_t *data)
 {
 	int x, valid = -1;
@@ -47,7 +42,7 @@ void _handler(data_t *data)
 }
 
 /**
- * handle_chars - Handles character and string specifiers
+ * handle_chars - handles character and string format specifiers
  * @ptr: pointer to data_t struct containing format data
  */
 void handle_chars(data_t *ptr)
@@ -79,76 +74,57 @@ void handle_chars(data_t *ptr)
 }
 
 /**
- * handle_integers - handles conversion of integers to different bases
+ * handle_integers - handles integer format specifiers
  * @ptr: pointer to data_t struct containing argument list and buffer
  */
-
 void handle_integers(data_t *ptr)
 {
-	integer_t data;
-	int x;
-	unsigned long int p;
-	char hex[32];
-	char digits[16] = "0123456789abcdef";
-		
-	if (ptr->specifier == 'p')
-	{
-		p = (unsigned long int) va_arg(ptr->ap, void *);
-	
-		add_char(ptr->buffer_ptr, '0');
-		add_char(ptr->buffer_ptr, 'x');
 
-		
-		x = 0;
+	#define I_SIZE 5
 
-		while (p != 0)
-		{
-			hex[x] = digits[p % 16];
-			p /= 16;
-			x++;
-		}
+	int x = 0;
+	int_t data;
 
-		x -= 1;
-	
-		while (x >= 0)
-		{
-			add_char(ptr->buffer_ptr, hex[x]);
-			x--;
-		}
-		return;
-	}
-	data.num = va_arg(ptr->ap, unsigned int);
+	router_i specifiers[8] = {
+		{'d', 10, _extract_signed},
+		{'i', 10, _extract_signed},
+		{'u', 10, _extract_u},
+		{'o', 8, _convert},
+		{'b', 2, _convert},
+		{'x', 16, _convert},
+		{'X', 16, _convert},
+		{'p', 16, _extract_address}
+	};
 
-	if (data.num == 0)
-	{
-		add_char(ptr->buffer_ptr, '0');
-		return;
-	}
+	data.number = 0;
 
 	if (ptr->specifier == 'd' || ptr->specifier == 'i')
-	{
-		extract_digits(ptr, (int) data.num);
-		return;
-	} 
+		data.number = (int) va_arg(ptr->ap, int);
+	else if (ptr->specifier == 'p')
+		data.number = (unsigned long int) va_arg(ptr->ap, void *);
+	else
+		data.number =  va_arg(ptr->ap, unsigned int);
 
-	if (ptr->specifier == 'u')
+	data.buffer = ptr->buffer_ptr;
+
+	if (data.number == 0)
 	{
-		extract_digits(ptr, data.num);
+		add_char(ptr->buffer_ptr, '0');
 		return;
 	}
-	
-	if (ptr->specifier == 'o')
-		data.base = 8;
-	else if (ptr->specifier == 'b')
-		data.base = 2;
-	else if (ptr->specifier == 'x')
-		data.base = 16;
-	else if (ptr->specifier == 'X')
+
+	while (x < 8)
 	{
-		data.base = 16;
-		data.is_cap = 1;
+		if (specifiers[x].name == ptr->specifier)
+		{
+			data.base = specifiers[x].base;
+			if (specifiers[x].name == 'X')
+				data.is_cap = 1;
+			else
+				data.is_cap = 0;
+			specifiers[x].func(&data);
+			return;
+		}
+		x++;
 	}
-
-	_convert(&data, ptr->buffer_ptr);
-
 }
