@@ -64,6 +64,7 @@ void _extract_u(int_t *d)
 	int x = 0;
 	unsigned long int n = d->number;
 	unsigned int digit;
+
 	d->result = (char *) malloc(sizeof(char) * 1024);
 
 	while (n > 0)
